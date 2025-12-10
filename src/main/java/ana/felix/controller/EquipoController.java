@@ -1,7 +1,8 @@
-package vallegrade.edu.pe.controller;
+package ana.felix.controller;
 
-import vallegrade.edu.pe.service.EquipoService;
-import vallegrade.edu.pe.model.Equipo;
+import ana.felix.model.Equipo;
+import ana.felix.service.EquipoService;
+
 import java.util.List;
 
 public class EquipoController {

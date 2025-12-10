@@ -1,4 +1,4 @@
-package vallegrade.edu.pe.database;
+package ana.felix.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,7 +1,9 @@
-package vallegrade.edu.pe.service;
 
-import vallegrade.edu.pe.database.EquipoDAO;
-import vallegrade.edu.pe.model.Equipo;
+package ana.felix.service;
+
+import ana.felix.database.EquipoDAO;
+import ana.felix.model.Equipo;
+
 import java.util.List;
 
 public class EquipoService {

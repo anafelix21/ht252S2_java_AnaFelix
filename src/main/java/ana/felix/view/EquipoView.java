@@ -1,7 +1,9 @@
-package vallegrade.edu.pe.view;
+package ana.felix.view;
 
-import vallegrade.edu.pe.controller.EquipoController;
-import vallegrade.edu.pe.model.Equipo;
+import ana.felix.controller.EquipoController;
+import ana.felix.model.Equipo;
+import ana.felix.service.ConfiguracionService;
+import ana.felix.service.ModelosService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,8 +12,6 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import vallegrade.edu.pe.utils.ConfiguracionEquipos;
-import vallegrade.edu.pe.utils.ModelosPorMarca;
 
 public class EquipoView extends JFrame {
     private EquipoController controller;
@@ -28,7 +28,7 @@ public class EquipoView extends JFrame {
     private JComboBox<String> cbSO;
     private JComboBox<String> cbEstado;
     private JSpinner spinnerMantenimiento;
-    
+
     // Botones
     private JButton btnGuardar;
     private JButton btnActualizar;
@@ -72,8 +72,6 @@ public class EquipoView extends JFrame {
 
         // Panel inferior - Estado
         lblEstado = new JLabel("Listo");
-        lblEstado.setFont(new Font("Arial", Font.BOLD, 12));
-        lblEstado.setForeground(new Color(34, 139, 34));
         panelPrincipal.add(lblEstado, BorderLayout.SOUTH);
 
         add(panelPrincipal);
@@ -119,10 +117,10 @@ public class EquipoView extends JFrame {
 
         // Fila 5: Botones
         JPanel filaBotones = new JPanel(new GridLayout(1, 4, 10, 0));
-        btnGuardar = crearBoton("Guardar", new Color(34, 139, 34), e -> guardarEquipo());
-        btnActualizar = crearBoton("Actualizar", new Color(0, 102, 204), e -> actualizarEquipo());
-        btnLimpiar = crearBoton("Limpiar", new Color(255, 140, 0), e -> limpiarFormulario());
-        btnEliminar = crearBoton("Eliminar", new Color(220, 20, 60), e -> eliminarEquipo());
+        btnGuardar = crearBoton("Guardar", e -> guardarEquipo());
+        btnActualizar = crearBoton("Actualizar", e -> actualizarEquipo());
+        btnLimpiar = crearBoton("Limpiar", e -> limpiarFormulario());
+        btnEliminar = crearBoton("Eliminar", e -> eliminarEquipo());
 
         filaBotones.add(btnGuardar);
         filaBotones.add(btnActualizar);
@@ -142,9 +140,9 @@ public class EquipoView extends JFrame {
         JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         JTextField txtBuscar = new JTextField(20);
         JComboBox<String> cbBuscarPor = new JComboBox<>(new String[]{"codigo", "tipo", "marcas", "estado"});
-        btnBuscar = crearBoton("Buscar", new Color(0, 102, 204), e -> buscarEquipo(cbBuscarPor.getSelectedItem().toString(), txtBuscar.getText()));
-        JButton btnMostrarTodos = crearBoton("Mostrar Todos", new Color(34, 139, 34), e -> cargarEquipos());
-        JButton btnRecargar = crearBoton("Recargar", new Color(100, 100, 100), e -> cargarEquipos());
+        btnBuscar = crearBoton("Buscar", e -> buscarEquipo(cbBuscarPor.getSelectedItem().toString(), txtBuscar.getText()));
+        JButton btnMostrarTodos = crearBoton("Mostrar Todos", e -> cargarEquipos());
+        JButton btnRecargar = crearBoton("Recargar", e -> cargarEquipos());
 
         panelBusqueda.add(new JLabel("Buscar por:"));
         panelBusqueda.add(cbBuscarPor);
@@ -165,8 +163,6 @@ public class EquipoView extends JFrame {
 
         tablaEquipos = new JTable(modeloTabla);
         tablaEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tablaEquipos.setFont(new Font("Arial", Font.PLAIN, 11));
-        tablaEquipos.setRowHeight(25);
         tablaEquipos.getSelectionModel().addListSelectionListener(e -> seleccionarEquipo());
 
         // Configurar renderizador para las columnas de fecha
@@ -187,6 +183,7 @@ public class EquipoView extends JFrame {
         // Aplicar el renderizador a las columnas 9 (Mantenimiento) y 10 (Registro)
         tablaEquipos.getColumnModel().getColumn(9).setCellRenderer(dateRenderer);
         tablaEquipos.getColumnModel().getColumn(10).setCellRenderer(dateRenderer);
+
 
         JScrollPane scrollPane = new JScrollPane(tablaEquipos);
         scrollPane.setPreferredSize(new Dimension(1000, 400));
@@ -209,12 +206,8 @@ public class EquipoView extends JFrame {
         return panel;
     }
 
-    private JButton crearBoton(String texto, Color color, java.awt.event.ActionListener accion) {
+    private JButton crearBoton(String texto, java.awt.event.ActionListener accion) {
         JButton boton = new JButton(texto);
-        boton.setBackground(color);
-        boton.setForeground(Color.WHITE);
-        boton.setFont(new Font("Arial", Font.BOLD, 11));
-        boton.setFocusPainted(false);
         boton.addActionListener(accion);
         return boton;
     }
@@ -412,10 +405,10 @@ public class EquipoView extends JFrame {
         String tipo = cbTipo.getSelectedItem().toString();
         String marca = cbMarca.getSelectedItem().toString();
         String so = cbSO.getSelectedItem().toString();
-        
-        Integer ram = ConfiguracionEquipos.obtenerRAM(tipo, marca, so);
-        Integer almacenamiento = ConfiguracionEquipos.obtenerAlmacenamiento(tipo, marca, so);
-        
+
+        Integer ram = ConfiguracionService.obtenerRAM(tipo, marca, so);
+        Integer almacenamiento = ConfiguracionService.obtenerAlmacenamiento(tipo, marca, so);
+
         if (ram != null && ram > 0) {
             txtRam.setText(String.valueOf(ram));
         }
@@ -426,16 +419,16 @@ public class EquipoView extends JFrame {
 
     private void actualizarModelos() {
         String marca = cbMarca.getSelectedItem().toString();
-        List<String> modelosList = ModelosPorMarca.obtenerModelos(marca);
-        
+        List<String> modelosList = ModelosService.obtenerModelos(marca);
+
         // Limpiar el combobox de modelos
         cbModelo.removeAllItems();
-        
+
         // Agregar todos los modelos disponibles
         for (String modelo : modelosList) {
             cbModelo.addItem(modelo);
         }
-        
+
         // Seleccionar el primer modelo
         if (!modelosList.isEmpty()) {
             cbModelo.setSelectedIndex(0);

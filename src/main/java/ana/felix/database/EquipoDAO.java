@@ -1,8 +1,8 @@
-package vallegrade.edu.pe.database;
+package ana.felix.database;
 
-import vallegrade.edu.pe.model.Equipo;
+import ana.felix.model.Equipo;
+
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class EquipoDAO {
         String sql = "INSERT INTO equipos (codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, equipo.getCodigo());
@@ -38,7 +38,7 @@ public class EquipoDAO {
         List<Equipo> equipos = new ArrayList<>();
         String sql = "SELECT id, codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro FROM equipos";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -54,7 +54,7 @@ public class EquipoDAO {
     public Equipo obtenerPorId(int id) {
         String sql = "SELECT id, codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro FROM equipos WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
@@ -73,7 +73,7 @@ public class EquipoDAO {
         String sql = "UPDATE equipos SET codigo = ?, tipo = ?, marcas = ?, modelo = ?, so = ?, " +
                      "almacenamiento = ?, ram = ?, estado = ?, mantenimiento = ? WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, equipo.getCodigo());
@@ -98,7 +98,7 @@ public class EquipoDAO {
     public boolean eliminarFisico(int id) {
         String sql = "DELETE FROM equipos WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
@@ -124,7 +124,7 @@ public class EquipoDAO {
             sql = "SELECT id, codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro FROM equipos WHERE estado LIKE ?";
         }
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, "%" + valor + "%");
@@ -142,7 +142,7 @@ public class EquipoDAO {
     public boolean existeCodigo(String codigo) {
         String sql = "SELECT COUNT(*) FROM equipos WHERE codigo = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = ana.felix.database.DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, codigo);

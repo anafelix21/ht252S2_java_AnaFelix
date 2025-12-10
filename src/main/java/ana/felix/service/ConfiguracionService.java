@@ -1,9 +1,9 @@
-package vallegrade.edu.pe.utils;
+package ana.felix.service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConfiguracionEquipos {
+public class ConfiguracionService {
     private static final Map<String, Map<String, Map<String, int[]>>> configuraciones = new HashMap<>();
 
     static {
@@ -221,31 +221,31 @@ public class ConfiguracionEquipos {
 
     public static Integer obtenerRAM(String tipo, String marca, String so) {
         if (tipo == null || marca == null || so == null) return null;
-        
+
         Map<String, Map<String, int[]>> tipoConfig = configuraciones.get(tipo);
         if (tipoConfig == null) tipoConfig = configuraciones.get("Laptop");
-        
+
         Map<String, int[]> marcaConfig = tipoConfig.get(marca);
         if (marcaConfig == null) marcaConfig = tipoConfig.get("Otro");
-        
+
         int[] valores = marcaConfig.get(so);
         if (valores == null) valores = marcaConfig.get("Otro");
-        
+
         return valores != null ? valores[0] : null;
     }
 
     public static Integer obtenerAlmacenamiento(String tipo, String marca, String so) {
         if (tipo == null || marca == null || so == null) return null;
-        
+
         Map<String, Map<String, int[]>> tipoConfig = configuraciones.get(tipo);
         if (tipoConfig == null) tipoConfig = configuraciones.get("Laptop");
-        
+
         Map<String, int[]> marcaConfig = tipoConfig.get(marca);
         if (marcaConfig == null) marcaConfig = tipoConfig.get("Otro");
-        
+
         int[] valores = marcaConfig.get(so);
         if (valores == null) valores = marcaConfig.get("Otro");
-        
+
         return valores != null ? valores[1] : null;
     }
 }

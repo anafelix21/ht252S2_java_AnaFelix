@@ -1,8 +1,8 @@
-package vallegrade.edu.pe.utils;
+package ana.felix.service;
 
 import java.util.*;
 
-public class ModelosPorMarca {
+public class ModelosService {
     private static final Map<String, List<String>> modelos = new HashMap<>();
 
     static {
