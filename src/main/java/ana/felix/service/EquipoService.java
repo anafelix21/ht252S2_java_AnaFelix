@@ -1,4 +1,3 @@
-
 package ana.felix.service;
 
 import ana.felix.database.EquipoDAO;
@@ -13,6 +12,7 @@ public class EquipoService {
         this.dao = new EquipoDAO();
     }
 
+    // Método para crear un nuevo equipo, validando que el código no exista
     public boolean crearEquipo(Equipo equipo) {
         if (equipo.getCodigo() == null || equipo.getCodigo().trim().isEmpty()) {
             System.err.println("Error: El codigo es obligatorio");
@@ -25,10 +25,12 @@ public class EquipoService {
         return dao.crearEquipo(equipo);
     }
 
+    // Método para obtener todos los equipos
     public List<Equipo> obtenerTodos() {
         return dao.obtenerTodos();
     }
 
+    // Método para obtener un equipo por su ID, validando que el ID sea válido
     public Equipo obtenerPorId(int id) {
         if (id <= 0) {
             System.err.println("Error: ID invalido");
@@ -37,6 +39,7 @@ public class EquipoService {
         return dao.obtenerPorId(id);
     }
 
+    // Método para actualizar un equipo existente, validando ID y código único
     public boolean actualizarEquipo(Equipo equipo) {
         if (equipo.getId() <= 0) {
             System.err.println("Error: ID invalido");
@@ -49,6 +52,7 @@ public class EquipoService {
         return dao.actualizarEquipo(equipo);
     }
 
+    // Método para eliminar un equipo por su ID, validando que el ID sea válido
     public boolean eliminarEquipo(int id) {
         if (id <= 0) {
             System.err.println("Error: ID invalido");
@@ -57,6 +61,7 @@ public class EquipoService {
         return dao.eliminarFisico(id);
     }
 
+    // Método para buscar equipos según un criterio, devolviendo todos si el valor está vacío
     public List<Equipo> buscar(String criterio, String valor) {
         if (valor == null || valor.trim().isEmpty()) {
             return obtenerTodos();
@@ -64,6 +69,7 @@ public class EquipoService {
         return dao.buscar(criterio, valor);
     }
 
+    // Método para verificar si un código de equipo ya existe
     public boolean existeCodigo(String codigo) {
         return dao.existeCodigo(codigo);
     }

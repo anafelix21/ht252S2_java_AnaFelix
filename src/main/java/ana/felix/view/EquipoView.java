@@ -212,6 +212,7 @@ public class EquipoView extends JFrame {
         return boton;
     }
 
+    // Método para cargar y mostrar todos los equipos en la tabla
     public void cargarEquipos() {
         modeloTabla.setRowCount(0);
         List<Equipo> equipos = controller.obtenerTodos();
@@ -240,6 +241,7 @@ public class EquipoView extends JFrame {
         modeloTabla.addRow(fila);
     }
 
+    // Método para seleccionar un equipo de la tabla y cargar sus datos en el formulario
     private void seleccionarEquipo() {
         int fila = tablaEquipos.getSelectedRow();
         if (fila >= 0) {
@@ -268,6 +270,7 @@ public class EquipoView extends JFrame {
         }
     }
 
+    // Método para guardar un nuevo equipo desde la interfaz
     private void guardarEquipo() {
         if (!validarCampos()) return;
 
@@ -308,6 +311,7 @@ public class EquipoView extends JFrame {
         }
     }
 
+    // Método para actualizar un equipo existente desde la interfaz
     private void actualizarEquipo() {
         if (equipoSeleccionadoId < 0) {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -347,6 +351,7 @@ public class EquipoView extends JFrame {
         }
     }
 
+    // Método para eliminar un equipo seleccionado desde la interfaz
     private void eliminarEquipo() {
         if (equipoSeleccionadoId < 0) {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -385,6 +390,7 @@ public class EquipoView extends JFrame {
         actualizarEstado("Formulario limpiado");
     }
 
+    // Método para buscar equipos según un criterio y valor desde la interfaz
     private void buscarEquipo(String criterio, String valor) {
         if (valor.trim().isEmpty()) {
             cargarEquipos();

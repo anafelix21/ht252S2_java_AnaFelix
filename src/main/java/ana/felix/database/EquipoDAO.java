@@ -8,6 +8,7 @@ import java.util.List;
 
 public class EquipoDAO {
 
+    // Método para crear un nuevo equipo en la base de datos
     public boolean crearEquipo(Equipo equipo) {
         String sql = "INSERT INTO equipos (codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -34,6 +35,7 @@ public class EquipoDAO {
         }
     }
 
+    // Método para obtener todos los equipos de la base de datos
     public List<Equipo> obtenerTodos() {
         List<Equipo> equipos = new ArrayList<>();
         String sql = "SELECT id, codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro FROM equipos";
@@ -51,6 +53,7 @@ public class EquipoDAO {
         return equipos;
     }
 
+    // Método para obtener un equipo específico por su ID
     public Equipo obtenerPorId(int id) {
         String sql = "SELECT id, codigo, tipo, marcas, modelo, so, almacenamiento, ram, estado, mantenimiento, fecha_registro FROM equipos WHERE id = ?";
 
@@ -69,6 +72,7 @@ public class EquipoDAO {
         return null;
     }
 
+    // Método para actualizar la información de un equipo existente
     public boolean actualizarEquipo(Equipo equipo) {
         String sql = "UPDATE equipos SET codigo = ?, tipo = ?, marcas = ?, modelo = ?, so = ?, " +
                      "almacenamiento = ?, ram = ?, estado = ?, mantenimiento = ? WHERE id = ?";
@@ -95,6 +99,7 @@ public class EquipoDAO {
         }
     }
 
+    // Método para eliminar físicamente un equipo de la base de datos
     public boolean eliminarFisico(int id) {
         String sql = "DELETE FROM equipos WHERE id = ?";
 
@@ -110,6 +115,7 @@ public class EquipoDAO {
         }
     }
 
+    // Método para buscar equipos según un criterio y valor específico
     public List<Equipo> buscar(String criterio, String valor) {
         List<Equipo> equipos = new ArrayList<>();
         String sql = "";
@@ -139,6 +145,7 @@ public class EquipoDAO {
         return equipos;
     }
 
+    // Método para verificar si un código de equipo ya existe en la base de datos
     public boolean existeCodigo(String codigo) {
         String sql = "SELECT COUNT(*) FROM equipos WHERE codigo = ?";
 
@@ -157,6 +164,7 @@ public class EquipoDAO {
         return false;
     }
 
+    // Método para verificar si un código de equipo ya existe, excluyendo un ID específico (para actualizaciones)
     public boolean existeCodigoExcluido(String codigo, int idExcluido) {
         String sql = "SELECT COUNT(*) FROM equipos WHERE codigo = ? AND id != ?";
 
@@ -176,6 +184,7 @@ public class EquipoDAO {
         return false;
     }
 
+    // Método auxiliar para mapear un ResultSet a un objeto Equipo
     private Equipo mapearEquipo(ResultSet rs) throws SQLException {
         return new Equipo(
                 rs.getInt("id"),
