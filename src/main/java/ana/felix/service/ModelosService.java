@@ -2,9 +2,11 @@ package ana.felix.service;
 
 import java.util.*;
 
+// Clase que proporciona una lista de modelos disponibles para diferentes marcas de equipos
 public class ModelosService {
     private static final Map<String, List<String>> modelos = new HashMap<>();
 
+    // Bloque estático que inicializa el mapa con listas de modelos para cada marca
     static {
         modelos.put("HP", Arrays.asList(
                 "HP Pavilion 15",
@@ -71,14 +73,16 @@ public class ModelosService {
         modelos.put("Otro", Collections.singletonList("Modelo Generico"));
     }
 
+    // Método para verificar si una marca existe en la lista de modelos
+    public static boolean existeMarca(String marca) {
+        return modelos.containsKey(marca);
+    }
+
+    // Método para obtener la lista de modelos disponibles para una marca específica
     public static List<String> obtenerModelos(String marca) {
         if (marca == null || marca.isEmpty()) {
             return modelos.get("Otro");
         }
         return modelos.getOrDefault(marca, modelos.get("Otro"));
-    }
-
-    public static boolean existeMarca(String marca) {
-        return modelos.containsKey(marca);
     }
 }

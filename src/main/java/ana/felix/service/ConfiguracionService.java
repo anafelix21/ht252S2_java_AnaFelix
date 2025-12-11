@@ -3,6 +3,7 @@ package ana.felix.service;
 import java.util.HashMap;
 import java.util.Map;
 
+// Clase que define configuraciones predeterminadas de RAM y almacenamiento para diferentes tipos de equipos, marcas y sistemas operativos
 public class ConfiguracionService {
     private static final Map<String, Map<String, Map<String, int[]>>> configuraciones = new HashMap<>();
 

@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+// Clase para gestionar la conexión a la base de datos MySQL utilizando el patrón Singleton(patrón de diseño creacional que garantiza que una clase tenga solo una instancia y proporciona un punto de acceso global a ella)
 public class DatabaseConnection {
     private static Connection connection;
-    private static final String URL = "jdbc:mysql://prueba1111.csmouoomzfkk.us-east-1.rds.amazonaws.com:3306/hackaton";
+    private static final String URL = "jdbc:mysql://localhost:3306/hackaton";
     private static final String USER = "admin";
     private static final String PASSWORD = "987654321";
 
+    // Bloque estático para cargar el driver de MySQL al inicializar la clase
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -18,8 +20,10 @@ public class DatabaseConnection {
         }
     }
 
+    // Constructor privado para evitar instanciación de la clase (patrón Singleton)
     private DatabaseConnection() {}
 
+    // Método para obtener una conexión a la base de datos, reutilizando la conexión existente si es posible
     public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
@@ -35,6 +39,7 @@ public class DatabaseConnection {
         return connection;
     }
 
+    // Método para cerrar la conexión a la base de datos si está abierta
     public static void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -46,6 +51,7 @@ public class DatabaseConnection {
         }
     }
 
+    // Método para verificar si la conexión a la base de datos está activa
     public static boolean isConnected() {
         try {
             return connection != null && !connection.isClosed();

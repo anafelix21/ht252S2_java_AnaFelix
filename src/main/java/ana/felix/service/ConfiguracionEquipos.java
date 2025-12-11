@@ -3,9 +3,11 @@ package ana.felix.service;
 import java.util.HashMap;
 import java.util.Map;
 
+// Clase que define configuraciones predeterminadas de RAM y almacenamiento para diferentes tipos de equipos, marcas y sistemas operativos
 public class ConfiguracionEquipos {
     private static final Map<String, Map<String, Map<String, int[]>>> configuraciones = new HashMap<>();
 
+    // Bloque estático que inicializa las configuraciones llamando a los métodos de configuración para cada tipo de equipo
     static {
         configurarLaptops();
         configurarDesktops();
@@ -15,6 +17,7 @@ public class ConfiguracionEquipos {
         configurarRouters();
     }
 
+    // Método que configura las especificaciones de RAM y almacenamiento para laptops de diferentes marcas y sistemas operativos
     private static void configurarLaptops() {
         Map<String, Map<String, int[]>> laptop = new HashMap<>();
 
@@ -219,6 +222,7 @@ public class ConfiguracionEquipos {
         configuraciones.put("Router", router);
     }
 
+    // Método público para obtener la cantidad de RAM recomendada para un tipo de equipo, marca y sistema operativo específicos
     public static Integer obtenerRAM(String tipo, String marca, String so) {
         if (tipo == null || marca == null || so == null) return null;
 
@@ -234,6 +238,7 @@ public class ConfiguracionEquipos {
         return valores != null ? valores[0] : null;
     }
 
+    // Método público para obtener la cantidad de almacenamiento recomendada para un tipo de equipo, marca y sistema operativo específicos
     public static Integer obtenerAlmacenamiento(String tipo, String marca, String so) {
         if (tipo == null || marca == null || so == null) return null;
 

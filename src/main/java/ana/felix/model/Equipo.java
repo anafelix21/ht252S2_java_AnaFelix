@@ -3,6 +3,7 @@ package ana.felix.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+// Clase que representa un equipo informático con sus atributos y métodos de acceso
 public class Equipo {
     private int id;
     private String codigo;
@@ -16,8 +17,10 @@ public class Equipo {
     private LocalDate mantenimiento;
     private LocalDate fechaRegistro;
 
+    // Constructor vacío
     public Equipo() {}
 
+    // Constructor para crear un equipo sin ID (para inserciones)
     public Equipo(String codigo, String tipo, String marcas, String modelo, String so, int almacenamiento, int ram, String estado, LocalDate fechaRegistro) {
         this.codigo = codigo;
         this.tipo = tipo;
@@ -30,6 +33,7 @@ public class Equipo {
         this.fechaRegistro = fechaRegistro;
     }
 
+    // Constructor para crear un equipo con ID y sin fecha de mantenimiento
     public Equipo(String codigo, String tipo, String marcas, String modelo, String so, int almacenamiento, int ram, String estado, LocalDate mantenimiento, LocalDate fechaRegistro) {
         this.codigo = codigo;
         this.tipo = tipo;
@@ -43,6 +47,7 @@ public class Equipo {
         this.fechaRegistro = fechaRegistro;
     }
 
+    // Constructor completo
     public Equipo(int id, String codigo, String tipo, String marcas, String modelo, String so, int almacenamiento, int ram, String estado, LocalDate mantenimiento, LocalDate fechaRegistro) {
         this.id = id;
         this.codigo = codigo;
@@ -90,6 +95,7 @@ public class Equipo {
     public LocalDate getFechaRegistro() { return fechaRegistro; }
     public void setFechaRegistro(LocalDate fechaRegistro) { this.fechaRegistro = fechaRegistro; }
 
+    // Método que devuelve una representación en cadena del objeto Equipo
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
