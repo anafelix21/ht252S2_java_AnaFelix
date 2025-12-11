@@ -7,7 +7,7 @@ import java.sql.SQLException;
 // Clase para gestionar la conexión a la base de datos MySQL utilizando el patrón Singleton(patrón de diseño creacional que garantiza que una clase tenga solo una instancia y proporciona un punto de acceso global a ella)
 public class DatabaseConnection {
     private static Connection connection;
-    private static final String URL = "jdbc:mysql://localhost:3306/hackaton";
+    private static final String URL = "jdbc:mysql://tu-rds-endpoint.region.rds.amazonaws.com:3306/hackaton";
     private static final String USER = "admin";
     private static final String PASSWORD = "987654321";
 
